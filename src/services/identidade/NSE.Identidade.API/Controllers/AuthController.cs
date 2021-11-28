@@ -4,6 +4,7 @@ using NSE.Identidade.API.Models;
 
 namespace NSE.Identidade.API.Controllers
 {
+    [ApiController]
     [Route("api/identidade")]
     public class AuthController : Controller
     {

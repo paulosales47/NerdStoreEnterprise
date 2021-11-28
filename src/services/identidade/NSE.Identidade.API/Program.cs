@@ -9,6 +9,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//SERVICES
+
 builder.Services.AddDbContext<ApplicationDbContext>(optionsAction: options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -20,7 +22,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>()
 
 var jwtSection = builder.Configuration.GetSection(nameof(JwtConfig));
 builder.Services.Configure<JwtConfig>(jwtSection);
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -42,8 +43,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -57,6 +56,8 @@ builder.Services.AddSwaggerGen(config =>
         License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
     });
 });
+
+//CONFIGURE
 
 var app = builder.Build();
 

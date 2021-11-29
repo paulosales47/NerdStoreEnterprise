@@ -82,6 +82,24 @@ namespace NSE.Identidade.API.Controllers
 
             var identityClaims = new ClaimsIdentity();
             identityClaims.AddClaims(claims);
+            string encodedToken = CodificarToken(identityClaims);
+            var response = new UsuarioRespostaLogin
+            {
+                AccessToken = encodedToken,
+                ExpireIn = TimeSpan.FromHours(_jwtConfig.ExpirationTimeHours).TotalSeconds,
+                UsuarioToken = new UsuarioToken
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Claims = claims.Select(claims => new UsuarioClaim(claims.Type, claims.Value))
+                }
+            };
+
+            return response;
+        }
+
+        private string CodificarToken(ClaimsIdentity identityClaims)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtConfig.key);
             var token = tokenHandler.CreateToken(new SecurityTokenDescriptor
@@ -93,19 +111,7 @@ namespace NSE.Identidade.API.Controllers
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
             });
             var encodedToken = tokenHandler.WriteToken(token);
-            var response = new UsuarioRespostaLogin
-            {
-                AccessToken = encodedToken,
-                ExpireIn = TimeSpan.FromHours(_jwtConfig.ExpirationTimeHours).TotalSeconds,
-                UsuarioToken = new UsuarioToken
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Claims = claims.Select(claims => new UsuarioClaim(claims.Type,claims.Value))
-                }
-            };
-
-            return response;
+            return encodedToken;
         }
 
         private void AdicionarClaims(IdentityUser user, IList<Claim> claims, IList<string> userRoles)

@@ -7,7 +7,7 @@ IServiceCollection services = builder.Services;
 
 services.AddIdentityConfiguration();
 services.AddControllersWithViews();
-
+services.RegisterServices();
 
 //CONFIGURE
 var app = builder.Build();

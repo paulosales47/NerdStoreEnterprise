@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Configuration\IdentityConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Identidade\" />
+  </ItemGroup>
+
 </Project>

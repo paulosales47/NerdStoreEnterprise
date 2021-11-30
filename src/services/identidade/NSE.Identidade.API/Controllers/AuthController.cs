@@ -86,7 +86,7 @@ namespace NSE.Identidade.API.Controllers
             var response = new UsuarioRespostaLogin
             {
                 AccessToken = encodedToken,
-                ExpireIn = TimeSpan.FromHours(_jwtConfig.ExpirationTimeHours).TotalSeconds,
+                ExpiresIn = TimeSpan.FromHours(_jwtConfig.ExpirationTimeHours).TotalSeconds,
                 UsuarioToken = new UsuarioToken
                 {
                     Id = user.Id,

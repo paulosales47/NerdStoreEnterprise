@@ -53,6 +53,8 @@ namespace NSE.Identidade.API.Controllers
         [HttpPost("autenticar")]
         public async Task<IActionResult> Login(UsuarioLogin usuarioLogin) 
         {
+            return new StatusCodeResult(401);
+
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _signInManager.PasswordSignInAsync(

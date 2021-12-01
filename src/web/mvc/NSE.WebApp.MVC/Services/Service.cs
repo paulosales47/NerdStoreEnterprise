@@ -8,13 +8,13 @@ namespace NSE.WebApp.MVC.Services
         {
             switch ((int)response.StatusCode)
             {
-                case 401:
-                case 403:
-                case 404:
-                case 500:
+                case StatusCodes.Status401Unauthorized:
+                case StatusCodes.Status403Forbidden:
+                case StatusCodes.Status404NotFound:
+                case StatusCodes.Status500InternalServerError:
                     throw new CustomHttpRequestException(response.StatusCode);
                 
-                case 400:
+                case StatusCodes.Status400BadRequest:
                     return false;
 
             }

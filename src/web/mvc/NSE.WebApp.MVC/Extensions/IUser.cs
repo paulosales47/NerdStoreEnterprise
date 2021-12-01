@@ -9,8 +9,8 @@ namespace NSE.WebApp.MVC.Extensions
         string ObterUserEmail();
         string ObterUserToken();
         bool EstaAutenticado();
-        bool EstaNaRole(string role);
+        bool PossuiRole(string role);
         IEnumerable<Claim> ObterClaims();
-        HttpContent ObterHttpContext();
+        HttpContext ObterHttpContext();
     }
 }

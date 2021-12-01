@@ -17,37 +17,37 @@ namespace NSE.WebApp.MVC.Extensions
 
         public bool EstaAutenticado()
         {
-            throw new NotImplementedException();
+            return _user!.Identity!.IsAuthenticated;
         }
 
-        public bool EstaNaRole(string role)
+        public bool PossuiRole(string role)
         {
-            throw new NotImplementedException();
+            return _user!.IsInRole(role);
         }
 
         public IEnumerable<Claim> ObterClaims()
         {
-            throw new NotImplementedException();
+            return _user!.Claims;
         }
 
-        public HttpContent ObterHttpContext()
+        public HttpContext ObterHttpContext()
         {
-            throw new NotImplementedException();
+            return _contextAccessor.HttpContext!;
         }
 
         public string ObterUserEmail()
         {
-            return EstaAutenticado() ? _user.FindFirstValue(ClaimTypes.Email) : String.Empty;
+            return EstaAutenticado() ? _user!.GetUserEmail() : String.Empty;
         }
 
         public Guid ObterUserId()
         {
-            return EstaAutenticado() ? Guid.Parse(_user.FindFirstValue(ClaimTypes.NameIdentifier)) : Guid.Empty;
+            return EstaAutenticado() ? Guid.Parse(_user!.GetUserId()) : Guid.Empty;
         }
 
         public string ObterUserToken()
         {
-            return EstaAutenticado() ? _user.FindFirstValue(ClaimTypes.Sid) : String.Empty;
+            return EstaAutenticado() ? _user!.GetUserToken() : String.Empty;
         }
     }
 }

@@ -7,9 +7,16 @@ namespace NSE.WebApp.MVC.Controllers
     {
         protected bool ResponsePossuiErros(ResponseResult resposta) 
         {
-            if(resposta != null && resposta.Errors.Mensagens.Any())
-                return true;
+            if(resposta != null && resposta.Errors.Mensagens.Any()) 
+            {
+                foreach (var mensagem in resposta.Errors.Mensagens)
+                {
+                    ModelState.AddModelError(key: String.Empty, errorMessage: mensagem);
+                }
 
+                return true;
+            }
+            
             return false;
         }
     }

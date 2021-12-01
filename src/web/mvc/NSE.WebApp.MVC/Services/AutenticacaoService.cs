@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace NSE.WebApp.MVC.Services
 {
-    public class AutenticacaoService : IAutenticacaoService
+    public class AutenticacaoService : Service, IAutenticacaoService
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -28,6 +28,14 @@ namespace NSE.WebApp.MVC.Services
             var response = await _httpClient.PostAsync("https://localhost:7269/api/identidade/autenticar", loginContent);
             string jsonResponse = await response.Content.ReadAsStringAsync();
 
+            if (!TratarErrosResponse(response)) 
+            {
+                return new UsuarioRespostaLogin
+                {
+                    ResponseResult = JsonSerializer.Deserialize<ResponseResult>(json: jsonResponse, _jsonSerializerOptions)!
+                };
+            }
+
             return JsonSerializer.Deserialize<UsuarioRespostaLogin>(json: jsonResponse, _jsonSerializerOptions)!;
         }
 
@@ -40,6 +48,14 @@ namespace NSE.WebApp.MVC.Services
 
             var response = await _httpClient.PostAsync("https://localhost:7269/api/identidade/nova-conta", registroContent);
             string jsonResponse = await response.Content.ReadAsStringAsync();
+
+            if (!TratarErrosResponse(response))
+            {
+                return new UsuarioRespostaLogin
+                {
+                    ResponseResult = JsonSerializer.Deserialize<ResponseResult>(json: jsonResponse, _jsonSerializerOptions)!
+                };
+            }
 
             return JsonSerializer.Deserialize<UsuarioRespostaLogin>(json: jsonResponse, _jsonSerializerOptions)!;
         }

@@ -4,6 +4,14 @@ namespace NSE.WebApp.MVC.Configuration
 {
     public static class WebAppConfig
     {
+        public static void AddMvcConfiguration(this IServiceCollection services, IConfiguration configuration) 
+        {
+            services.AddControllersWithViews();
+
+            var endPointSection = configuration.GetSection(nameof(EndPointSettings));
+            services.Configure<EndPointSettings>(endPointSection);
+        }
+
         public static void UseMvcConfiguration(this WebApplication app) 
         {
             app.UseHttpsRedirection();

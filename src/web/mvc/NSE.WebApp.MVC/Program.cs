@@ -4,9 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 //SERVICE
 IServiceCollection services = builder.Services;
+IConfiguration configuration = builder.Configuration;
 
 services.AddIdentityConfiguration();
-services.AddControllersWithViews();
+services.AddMvcConfiguration(configuration);
 services.RegisterServices();
 
 //CONFIGURE

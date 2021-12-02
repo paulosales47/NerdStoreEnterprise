@@ -28,8 +28,6 @@ namespace NSE.Identidade.API.Controllers
         [HttpPost("nova-conta")]
         public async Task<IActionResult> Registrar(UsuarioRegistro usuarioRegistro) 
         {
-            return new StatusCodeResult(401);
-
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var user = new IdentityUser

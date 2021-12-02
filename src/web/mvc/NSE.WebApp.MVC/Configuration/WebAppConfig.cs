@@ -10,9 +10,9 @@ namespace NSE.WebApp.MVC.Configuration
             app.UseStaticFiles();
             app.UseRouting();
             app.UseIdentityConfiguration();
-            app.UseMiddleware<ExceptionMiddleware>();
             app.UseExceptionHandler("/erro/500");
             app.UseStatusCodePagesWithRedirects("/erro/{0}");
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseHsts();
 
             app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");

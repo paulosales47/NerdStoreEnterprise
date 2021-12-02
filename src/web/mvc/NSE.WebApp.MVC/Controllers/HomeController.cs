@@ -16,8 +16,7 @@ namespace NSE.WebApp.MVC.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        [Route("erro/{id:length(3,3)}")]
+        [Route("erro/{statusCodeErro:length(3,3)}")]
         public IActionResult Error(int statusCodeErro)
         {
             var modelErro = new ErrorViewModel();

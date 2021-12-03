@@ -1,6 +1,6 @@
 ﻿using NSE.Core.Data;
 
-namespace NSE.Catalago.API.Models
+namespace NSE.Catalogo.API.Models
 {
     public interface IProdutoRepository : IRepository<Produto>
     {

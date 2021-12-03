@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NSE.Catalago.API.Data;
+using NSE.Catalogo.API.Data;
 
 #nullable disable
 
-namespace NSE.Catalago.API.Migrations
+namespace NSE.Catalogo.API.Migrations
 {
     [DbContext(typeof(CatalagoContext))]
-    partial class CatalagoContextModelSnapshot : ModelSnapshot
+    [Migration("20211203021731_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace NSE.Catalago.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("NSE.Catalago.API.Models.Produto", b =>
+            modelBuilder.Entity("NSE.Catalogo.API.Models.Produto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

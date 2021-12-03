@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace NSE.Catalago.API.Migrations
+namespace NSE.Catalogo.API.Migrations
 {
     public partial class Initial : Migration
     {

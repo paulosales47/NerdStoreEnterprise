@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NSE.Catalago.API.Models;
+using NSE.Catalogo.API.Models;
 
-namespace NSE.Catalago.API.Controllers
+namespace NSE.Catalogo.API.Controllers
 {
     [ApiController]
     public class CatalagoController : Controller

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NSE.Catalago.API.Models;
+using NSE.Catalogo.API.Models;
 using NSE.Core.Data;
 using System.Linq;
 
-namespace NSE.Catalago.API.Data
+namespace NSE.Catalogo.API.Data
 {
     public class CatalagoContext: DbContext, IUnitOfWork
     {

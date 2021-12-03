@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NSE.Catalago.API.Data;
-using NSE.Catalago.API.Models;
+using NSE.Catalogo.API.Data;
+using NSE.Catalogo.API.Models;
 using NSE.Core.Data;
 
-namespace NSE.Catalago.API.Repository
+namespace NSE.Catalogo.API.Repository
 {
     public class ProdutoRepository : IProdutoRepository
     {

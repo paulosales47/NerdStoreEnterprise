@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "NSE.Catalago.API": {
+    "NSE.Catalogo.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

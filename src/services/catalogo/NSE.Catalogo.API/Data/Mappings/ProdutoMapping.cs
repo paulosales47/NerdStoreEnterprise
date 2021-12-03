@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using NSE.Catalago.API.Models;
+using NSE.Catalogo.API.Models;
 
-namespace NSE.Catalago.API.Data.Mappings
+namespace NSE.Catalogo.API.Data.Mappings
 {
     public class ProdutoMapping : IEntityTypeConfiguration<Produto>
     {

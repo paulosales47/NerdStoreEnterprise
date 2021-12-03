@@ -1,6 +1,6 @@
 ﻿using NSE.Core.DomainObjects;
 
-namespace NSE.Catalago.API.Models
+namespace NSE.Catalogo.API.Models
 {
     public class Produto: Entity, IAgregateRoot
     {

@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "Selfhosting - Development": {
+    "Selfhosting - Development - PC": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
@@ -17,6 +17,16 @@
       "applicationUrl": "https://localhost:7269;http://localhost:5269",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Selfhosting - Development - NOTE": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7269;http://localhost:5269",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "DevelopmentNote"
       }
     },
     "IIS Express": {

@@ -14,8 +14,6 @@ services.AddSwaggerConfiguration();
 
 //CONFIGURE
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-    app.UseApiConfigurationDevelopment();
 app.UseApiConfiguration();
 app.UseSwaggerConfiguration();
 app.MapControllers();

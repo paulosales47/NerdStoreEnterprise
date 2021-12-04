@@ -1,6 +1,6 @@
-﻿namespace NSE.Identidade.API.Extensions
+﻿namespace NSE.WebApi.Core.Identidade
 {
-    public class JwtConfig
+    public class Jwt
     {
         public string Audience { get; set; }
         public string Issuer { get; set; }

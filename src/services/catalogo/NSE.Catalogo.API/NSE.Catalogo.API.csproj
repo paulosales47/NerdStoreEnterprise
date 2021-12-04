@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\building blocks\core\NSE.Core\NSE.Core.csproj" />
+    <ProjectReference Include="..\..\..\building blocks\services\NSE.WebApi.Core\NSE.WebApi.Core.csproj" />
   </ItemGroup>
 
 </Project>

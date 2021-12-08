@@ -6,7 +6,7 @@ namespace NSE.Catalogo.API.Models
     {
         Task<Produto> CreateAsync(Produto produto);
         Produto Update(Produto produto);
-        Task<Produto> FindByIdAsync(Guid id);
+        Task<Produto> GetByIdAsync(Guid id);
         Task<IEnumerable<Produto>> GetAllAsync();
         
     }

@@ -7,27 +7,28 @@ namespace NSE.Catalogo.API.Controllers
 {
     [Authorize]
     [ApiController]
-    public class CatalagoController : Controller
+    [Route("api/catalogo")]
+    public class CatalogoController : Controller
     {
         private readonly IProdutoRepository _produtoRepository;
 
-        public CatalagoController(IProdutoRepository produtoRepository)
+        public CatalogoController(IProdutoRepository produtoRepository)
         {
             _produtoRepository = produtoRepository;
         }
 
         [AllowAnonymous]
-        [HttpGet("catalago/produtos")]
+        [HttpGet("produtos")]
         public async Task<IEnumerable<Produto>> Index() 
         {
             return await _produtoRepository.GetAllAsync();
         }
 
         [ClaimsAuthorize("Catalogo", "Ler")]
-        [HttpGet("catalago/produtos/{id}")]
+        [HttpGet("produtos/{id}")]
         public async Task<Produto> ProdutoDetalhe(Guid id) 
         {
-            return await _produtoRepository.FindByIdAsync(id);
+            return await _produtoRepository.GetByIdAsync(id);
         }
     }
 }

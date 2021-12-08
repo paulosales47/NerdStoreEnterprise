@@ -19,7 +19,7 @@ namespace NSE.Catalogo.API.Repository
             var produtoCadastrado = await _context.AddAsync(produto);
             return produtoCadastrado.Entity;
         }
-        public async Task<Produto> FindByIdAsync(Guid id)
+        public async Task<Produto> GetByIdAsync(Guid id)
         {
             var produto = await _context.Produtos.FindAsync(id);
             

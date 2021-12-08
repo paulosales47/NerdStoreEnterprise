@@ -71,6 +71,7 @@ namespace NSE.WebApp.MVC.Controllers
         public async Task<IActionResult> Logout() 
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Cookies");
             return RedirectToAction("Index", "Home");
         }
 

@@ -23,7 +23,7 @@ namespace NSE.WebApp.MVC.Configuration
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHsts();
 
-            app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(name: "default", pattern: "{controller=Catalogo}/{action=Index}/{id?}");
         }
 
         public static void UseMvcConfigurationDevelopment(this IApplicationBuilder app) 

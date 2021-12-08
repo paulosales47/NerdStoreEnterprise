@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Refit;
+using System.Net;
 
 namespace NSE.WebApp.MVC.Extensions
 {
@@ -19,19 +20,27 @@ namespace NSE.WebApp.MVC.Extensions
             }
             catch (CustomHttpRequestException ex)
             {
-                HandlerRequestExcpetionAsync(httpContext, ex);
+                HandlerRequestExcpetionAsync(httpContext, ex.StatusCode);
+            }
+            catch (ValidationApiException ex)
+            {
+                HandlerRequestExcpetionAsync(httpContext, ex.StatusCode);
+            }
+            catch (ApiException ex) 
+            {
+                HandlerRequestExcpetionAsync(httpContext, ex.StatusCode);
             }
         }
 
-        private static void HandlerRequestExcpetionAsync(HttpContext httpContext, CustomHttpRequestException httpRequestException) 
+        private static void HandlerRequestExcpetionAsync(HttpContext httpContext, HttpStatusCode statusCode)
         { 
-            if(httpRequestException.StatusCode == HttpStatusCode.Unauthorized) 
+            if(statusCode == HttpStatusCode.Unauthorized) 
             {
                 httpContext.Response.Redirect($"/login?ReturnUrl={httpContext.Request.Path}");
                 return;
             }
 
-            httpContext.Response.StatusCode = (int) httpRequestException.StatusCode;
+            httpContext.Response.StatusCode = (int) statusCode;
         }
     }
 }

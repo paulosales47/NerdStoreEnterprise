@@ -1,12 +1,12 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["directionionion"] = "Error"; 
+    ViewData["Title"] = "Error"; 
 }
 
 @{
     if (Model is null)
     {
-        <div class="text-center mt-5">
+        <div>
             <h2>Ops! Ocorreu um erro, mas não se preocupe. Nosso time será avisado e iremos corrigir em breve!</h2>
         </div>
     }
@@ -14,7 +14,7 @@
     {
         ViewData["Title"] = Model.Titulo;
 
-        <div class="text-center mt-5">
+        <div>
             <h2>@Html.Raw(Model.Mensagem)</h2>
         </div>
     }

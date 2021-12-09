@@ -8,7 +8,7 @@ IConfiguration configuration = builder.Configuration;
 
 services.AddIdentityConfiguration();
 services.AddMvcConfiguration(configuration);
-services.RegisterServices(configuration);
+services.RegisterServices();
 
 //CONFIGURE
 var app = builder.Build();

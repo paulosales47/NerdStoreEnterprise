@@ -2,6 +2,7 @@
 using NSE.WebApp.MVC.Services;
 using NSE.WebApp.MVC.Services.Handlers;
 using Polly;
+using Polly.Extensions.Http;
 
 namespace NSE.WebApp.MVC.Configuration
 {
@@ -13,10 +14,22 @@ namespace NSE.WebApp.MVC.Configuration
             
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
 
+            var retryWaitPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(sleepDurations: new[]
+                {
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(5),
+                    TimeSpan.FromSeconds(10),
+                }, onRetry:(outcome, timeSpan, retryCount, context) => { 
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Tentativa: {retryCount}");
+                    Console.ForegroundColor = ConsoleColor.White;
+                });
+
             services.AddHttpClient<ICatalogoService, CatalogoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                .AddTransientHttpErrorPolicy(
-                    builder => builder.WaitAndRetryAsync(3, _ => TimeSpan.FromMilliseconds(600)));
+                .AddPolicyHandler(retryWaitPolicy);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUser, AspNetUser>();

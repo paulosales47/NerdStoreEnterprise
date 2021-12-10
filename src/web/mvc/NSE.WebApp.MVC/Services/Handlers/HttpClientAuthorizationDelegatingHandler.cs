@@ -16,6 +16,11 @@ namespace NSE.WebApp.MVC.Services.Handlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"HashCode DelegatingHandler => {this.GetHashCode()}");
+            Console.WriteLine($"HashCode httpContextAccessor => {_httpContextAccessor.HttpContext.GetHashCode()}");
+            Console.ForegroundColor = ConsoleColor.White;
+
             _user = new AspNetUser(_httpContextAccessor);
             var authorizationHeader = _user.ObterHttpContext().Request.Headers["Authorization"];
 

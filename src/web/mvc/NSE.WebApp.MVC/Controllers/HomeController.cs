@@ -46,5 +46,17 @@ namespace NSE.WebApp.MVC.Controllers
 
             return View("Error", modelErro);
         }
+
+        [Route("sistema-indisponivel")]
+        public IActionResult SistemaIndisponivel()
+        {
+            var modelErro = new ErrorViewModel();
+            modelErro.Mensagem = "O sistema está temporariamente indisponível, tente novamente mais tarde";
+            modelErro.Titulo = "Sistema Indisponível";
+            modelErro.ErroCode = StatusCodes.Status503ServiceUnavailable;
+
+            return View("Error", modelErro);
+        }
+
     }
 }

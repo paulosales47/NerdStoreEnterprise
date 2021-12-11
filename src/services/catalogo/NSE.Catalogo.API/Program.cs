@@ -15,7 +15,7 @@ services.AddSwaggerConfiguration();
 var app = builder.Build();
 
 if(app.Environment.IsDevelopment())
-    app.UserSwaggerConfiguration();
+    app.UseSwaggerConfiguration();
 
 app.UseApiConfiguration();
 app.Run();

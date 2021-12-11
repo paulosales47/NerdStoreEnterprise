@@ -33,9 +33,9 @@ namespace NSE.Clientes.API.Data
                 e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
-                modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteContext).Assembly);
             }
 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ClienteContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }

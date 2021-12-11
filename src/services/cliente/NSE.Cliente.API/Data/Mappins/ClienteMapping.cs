@@ -32,6 +32,7 @@ namespace NSE.Clientes.API.Data.Mappins
                 .HasColumnType($"varchar({Email.EnderecoMaxLenght})");
             });
 
+            //1 : 1 => Cliente: Endereço
             builder.HasOne(c => c.Endereco)
                 .WithOne(c => c.Cliente);
 

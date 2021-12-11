@@ -17,7 +17,7 @@ namespace NSE.Core.DomainObjects
         public string? Endereco { get; private set; }
         public const int EnderecoMaxLenght = 254;
 
-        private static bool ValidateEmail(string email) 
+        public static bool ValidateEmail(string email) 
         {
             var regexEmail = new Regex(@"^(?!\.)(""([^""\r\\]|\\[""\r\\]) * ""|([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
             return regexEmail.IsMatch(email);   

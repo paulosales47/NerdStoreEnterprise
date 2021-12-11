@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
-namespace NSE.Catalogo.API.Configuration
+namespace NSE.Clientes.API.Configuration
 {
     public static class SwaggerConfig
     {
@@ -13,8 +12,8 @@ namespace NSE.Catalogo.API.Configuration
             {
                 config.SwaggerDoc(name: "v1", new OpenApiInfo
                 {
-                    Title = "NerdStore Enterprise Catálogo API",
-                    Description = "API utilizada para fornecer o catálogo do sistema",
+                    Title = "NerdStore Enterprise Clientes API",
+                    Description = "API utilizada para gerenciar os clientes do sistema",
                     Contact = new OpenApiContact { Name = "Paulo Sampaio", Email = "paulohenrique.sales47@gmail.com" },
                     License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });
@@ -41,11 +40,10 @@ namespace NSE.Catalogo.API.Configuration
                             }
                         }, new string[] {}
                     },
-                    
+
                 });
             });
         }
-
         public static void UseSwaggerConfiguration(this IApplicationBuilder app) 
         {
             app.UseSwagger();

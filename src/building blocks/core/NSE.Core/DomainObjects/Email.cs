@@ -15,6 +15,7 @@ namespace NSE.Core.DomainObjects
         }
 
         public string? Endereco { get; private set; }
+        public const int EnderecoMaxLenght = 254;
 
         private static bool ValidateEmail(string email) 
         {

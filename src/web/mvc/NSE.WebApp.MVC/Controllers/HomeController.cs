@@ -35,7 +35,7 @@ namespace NSE.WebApp.MVC.Controllers
             }
             else if (statusCodeErro == StatusCodes.Status403Forbidden)
             {
-                modelErro.Mensagem = "Você não tem acesso para fazer isso.";
+                modelErro.Mensagem = "Você não tem permissão para fazer isso.";
                 modelErro.Titulo = "Acesso Negado.";
                 modelErro.ErroCode = StatusCodes.Status403Forbidden;
             }

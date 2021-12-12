@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSE.Catalogo.API.Models;
+using NSE.WebApi.Core.Controllers;
 using NSE.WebApi.Core.Identidade;
 
 namespace NSE.Catalogo.API.Controllers
 {
     [Authorize]
-    [ApiController]
     [Route("api/catalogo")]
-    public class CatalogoController : Controller
+    public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
 

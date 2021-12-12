@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using NSE.Catalogo.API.Models;
 using NSE.Core.Data;
+using NSE.Core.Messages;
 using System.Linq;
 
 namespace NSE.Catalogo.API.Data
@@ -14,6 +16,9 @@ namespace NSE.Catalogo.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Event>();
+
             ConfigurarCampoString(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalagoContext).Assembly);
             base.OnModelCreating(modelBuilder);

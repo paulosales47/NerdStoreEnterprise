@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NSE.Identidade.API.Extensions;
+using NSE.Core.Messages.Integration;
 using NSE.Identidade.API.Models;
+using NSE.MessageBus;
 using NSE.WebApi.Core.Controllers;
 using NSE.WebApi.Core.Identidade;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,12 +20,18 @@ namespace NSE.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly Jwt _jwtConfig;
-
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<Jwt> jwtConfig)
+        private readonly IMessageBus _bus;
+        
+        public AuthController(
+            SignInManager<IdentityUser> signInManager,
+            UserManager<IdentityUser> userManager,
+            IOptions<Jwt> jwtConfig,
+            IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _jwtConfig = jwtConfig.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -41,8 +48,19 @@ namespace NSE.Identidade.API.Controllers
 
             var result = await _userManager.CreateAsync(user, usuarioRegistro.Senha);
 
-            if (result.Succeeded) 
-                return CustomResponse(await GerarJwt(usuarioRegistro.Email));
+            if (result.Succeeded)
+            {
+                ResponseMessage response = await RegistrarCliente(usuarioRegistro);
+
+                if (!response.ValidationResult.IsValid) 
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(response.ValidationResult);
+                }
+                
+                return CustomResponse(await GerarJwt(usuarioRegistro.Email!));
+            }
+                
 
             foreach (var error in result.Errors)
             {
@@ -51,7 +69,6 @@ namespace NSE.Identidade.API.Controllers
 
             return CustomResponse();
         }
-
         [HttpPost("autenticar")]
         public async Task<IActionResult> Login(UsuarioLogin usuarioLogin) 
         {
@@ -74,7 +91,6 @@ namespace NSE.Identidade.API.Controllers
             AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
-
         private async Task<UsuarioRespostaLogin> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -99,7 +115,6 @@ namespace NSE.Identidade.API.Controllers
 
             return response;
         }
-
         private string CodificarToken(ClaimsIdentity identityClaims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -115,7 +130,6 @@ namespace NSE.Identidade.API.Controllers
             var encodedToken = tokenHandler.WriteToken(token);
             return encodedToken;
         }
-
         private void AdicionarClaims(IdentityUser user, IList<Claim> claims, IList<string> userRoles)
         {
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
@@ -128,7 +142,6 @@ namespace NSE.Identidade.API.Controllers
                 claims.Add(new Claim("role", userRole));
             }
         }
-
         private long ToUnixEpochDate(DateTime date)
         {
             return (long)Math.Round((date.ToUniversalTime() - 
@@ -141,5 +154,23 @@ namespace NSE.Identidade.API.Controllers
                     second: 0,
                     offset: TimeSpan.Zero)).TotalSeconds);
         }
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            IdentityUser usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+
+            var usuarioIntegration = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome!, usuarioRegistro.Email!, usuarioRegistro.Cpf!);
+
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioIntegration);
+            }
+            catch
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+        }
     }
+
 }

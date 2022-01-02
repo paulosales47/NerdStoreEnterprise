@@ -9,6 +9,7 @@ services.AddApiConfiguration(configuration);
 services.AddSwaggerConfiguration();
 services.AddMediatR(typeof(Program));
 services.RegisterServices();
+services.AddMessageBusConfiguration(configuration);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

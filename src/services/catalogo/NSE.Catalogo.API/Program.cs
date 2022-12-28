@@ -9,7 +9,7 @@ IConfiguration configuration = builder.Configuration;
 services.AddApiConfiguration(configuration);
 services.AddJwtConfiguration(configuration);
 services.AddSwaggerConfiguration();
-
+services.RegisterServices();
 
 //CONFIGURE
 var app = builder.Build();

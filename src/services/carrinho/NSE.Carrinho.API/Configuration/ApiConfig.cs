@@ -1,16 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NSE.Catalogo.API.Data;
-using NSE.WebApi.Core.Identidade;
+﻿using NSE.WebApi.Core.Identidade;
 
-namespace NSE.Catalogo.API.Configuration
+namespace NSE.Carrinho.API.Configuration
 {
     public static class ApiConfig
     {
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration) 
         {
-            services.AddDbContext<CatalagoContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
             services.AddControllers();
 
             services.AddCors(options =>
@@ -31,6 +26,5 @@ namespace NSE.Catalogo.API.Configuration
             app.UseAuthConfiguration();
             app.MapControllers();
         }
-
     }
 }

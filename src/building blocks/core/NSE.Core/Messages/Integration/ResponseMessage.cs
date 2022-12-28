@@ -9,6 +9,8 @@ namespace NSE.Core.Messages.Integration
         public ResponseMessage(ValidationResult validationResult)
         {
             ValidationResult = validationResult;
+            DateTime date = DateTime.Now;
+            date.ToLocalTime();
         }
     }
 }
